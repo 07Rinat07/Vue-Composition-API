@@ -35,6 +35,8 @@ npm run build
 ```sh
 npm run lint
 ```
+* npm install @heroicons/vue
+
 ### Installation links:
 * https://tailwindcss.com/docs/installation/using-postcss
 * https://tailwindcss.com/docs/guides/vite#vue
