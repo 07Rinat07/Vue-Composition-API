@@ -1,23 +1,18 @@
 <script setup>
 import { generateTimelineItems } from '../functions'
+import TimelineItem from '../components/TimelineItem.vue'
+
 const timelineItems = generateTimelineItems()
 </script>
 
 <template>
   <div class="mt-7">
     <ul>
-      <li
-        v-for="{ hour } in timelineItems"
-        :key="hour"
-        class="relative flex flex-col gap-2 px-4 py-10 border-t border-gray-200"
-      >
-        <a
-          href="#"
-          class="absolute px-2 font-mono text-lg text-gray-500 -translate-x-1/2 bg-gray-100 rounded -top-4 left-1/2"
-        >
-          {{ hour }}:00
-        </a>
-      </li>
+      <TimelineItem
+        v-for="timelineItem in timelineItems"
+        :key="timelineItem.hour"
+        :timeline-item="timelineItem"
+      />
     </ul>
   </div>
 </template>
