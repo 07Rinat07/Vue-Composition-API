@@ -1,7 +1,11 @@
 <script setup>
 import BaseSelect from './BaseSelect.vue'
-const props = defineProps(['timelineItem'])
-  
+const props = defineProps({
+  timelineItem: {
+    required: true,
+    type: Object
+  }
+})
 const hourLinkClasses = [
   'absolute -top-4 left-1/2 -translate-x-1/2 rounded px-2 font-mono text-lg',
   props.timelineItem.hour === new Date().getHours()
@@ -15,7 +19,6 @@ const options = [
 ]
 const selectedActivityId = 3
 </script>
-
 <template>
   <li class="relative flex flex-col gap-2 px-4 py-10 border-t border-gray-200">
     <a href="#" :class="hourLinkClasses"> {{ timelineItem.hour }}:00 </a>
