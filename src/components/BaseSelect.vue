@@ -9,7 +9,12 @@ defineProps({
   },
   options: {
     required: true,
-    type: Array
+    type: Array,
+    validator(options) {
+      return options.every(
+        ({ value, label }) => typeof value === 'number' && typeof label === 'string'
+      )
+    }
   }
 })
 </script>
