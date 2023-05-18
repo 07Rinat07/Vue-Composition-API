@@ -11,10 +11,22 @@ export function isTimelineItemValid({ hour }) {
   return isHourValid(hour)
 }
 
+export function validateActivities(activities) {
+  return activities.every(isActivityValid)
+}
+
+export function isActivityValid(activity) {
+  return isNotEmptyString(activity)
+}
+
+function isNotEmptyString(value) {
+  return isString(value) && value.length > 0
+}
+
 export function isHourValid(hour) {
   return isNumber(hour) && isBetween(hour, MIDNIGHT_HOUR, HOURS_IN_DAY - 1)
 }
-
+  
 export function validateSelectOptions(options) {
   return options.every(isSelectOptionValid)
 }
@@ -30,9 +42,7 @@ export function isNumberOrNull(value) {
 function isSelectOptionValid({ value, label }) {
   return isNumber(value) && isString(label)
 }
-
-function isBetween(value, start, end) 
-{
+function isBetween(value, start, end) {
   return value >= start && value <= end
 }
 
