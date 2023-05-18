@@ -20,6 +20,10 @@ export function generateTimelineItems() {
   for (let hour = MIDNIGHT_HOUR; hour < HOURS_IN_DAY; hour++) {
     timelineItems.push({ hour })
   }
-  
+
   return timelineItems
+}
+
+export function generateActivitySelectOptions(activities) {
+  return activities.map((label, value) => ({ label, value }))
 }
