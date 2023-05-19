@@ -1,48 +1,46 @@
 <script setup>
-import { computed } from 'vue'
-import { XMarkIcon } from '@heroicons/vue/24/outline'
-import { BUTTON_TYPE_NEUTRAL } from '../constants'
-import { validateSelectOptions, isUndefinedOrNull, isNumberOrNull } from '../validators'
-import BaseButton from './BaseButton.vue'
-const props = defineProps({
-  selected: Number,
-  placeholder: {
-    required: true,
-    type: String
-  },
-  options: {
+import { PlusIcon } from '@heroicons/vue/24/outline'
+import { validateActivities, isActivityValid } from '../validators'
+import BaseButton from '../components/BaseButton.vue'
+import ActivityItem from '../components/ActivityItem.vue'
+defineProps({
+  activities: {
     required: true,
     type: Array,
-    validator: validateSelectOptions
+    validator: validateActivities
   }
 })
 const emit = defineEmits({
-  select: isNumberOrNull
+  createActivity: isActivityValid,
+  deleteActivity: isActivityValid
 })
-const isNotSelected = computed(() => isUndefinedOrNull(props.selected))
+let newActivity = ''
 </script>
 
 <template>
-  <div class="flex gap-2">
-    <BaseButton :type="BUTTON_TYPE_NEUTRAL" @click="emit('select', null)">
-      <XMarkIcon class="h-8" />
-    </BaseButton>
-    <select
-  
-      class="w-full px-2 py-1 text-2xl truncate bg-gray-100 rounded"
-      @change="emit('select', +$event.target.value)"
+  <div>
+    <ul class="divide-y">
+      <ActivityItem
+        v-for="activity in activities"
+        :key="activity"
+        :activity="activity"
+        @delete="emit('deleteActivity', activity)"
+      />
+    </ul>
+    <form
+      @submit.prevent="emit('createActivity', newActivity)"
+      class="sticky bottom-[57px] flex gap-2 border-t bg-white p-4"
     >
-      <option :selected="isNotSelected" disabled value="">
-        {{ placeholder }}
-      </option>
-      <option
-        v-for="{ value, label } in options"
-        :key="value"
-        :value="value"
-        :selected="value === selected"
-      >
-        {{ label }}
-      </option>
-    </select>
+      <input
+        type="text"
+        :value="newActivity"
+        @input="newActivity = $event.target.value"
+        class="w-full px-4 text-xl border rounded"
+        placeholder="Activity name"
+      />
+      <BaseButton>
+        <PlusIcon class="h-8" />
+      </BaseButton>
+    </form>
   </div>
 </template>
