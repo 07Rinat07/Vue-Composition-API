@@ -4,7 +4,7 @@
 </div>
 
 
-## Vue-Composition-API
+<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=700&size=40&color=F72402&center=true&vCenter=true&width=1100&height=150&lines=Vue-Composition-API" alt="Typing SVG" /></a>
 ## Project "ontrack"
 
 This template should help get you started developing with Vue 3 in Vite.
