@@ -14,9 +14,15 @@ export function isTimelineItemValid({ hour }) {
 export function validateActivities(activities) {
   return activities.every(isActivityValid)
 }
-export function isActivityValid(activity) {
-  return isNotEmptyString(activity)
+
+export function isActivityValid({ id, name, secondsToComplete }) {
+  return [
+    isNotEmptyString(id),
+    isNotEmptyString(name),
+    isNumber(secondsToComplete)
+  ].every(Boolean)
 }
+
 function isNotEmptyString(value) {
   return isString(value) && value.length > 0
 }
@@ -32,15 +38,16 @@ export function isUndefinedOrNull(value) {
 export function isNumberOrNull(value) {
   return isNumber(value) || isNull(value)
 }
-
 export function isUndefined(value) {
   return value === undefined
 }
 
 function isSelectOptionValid({ value, label }) {
-  return isNumber(value) && isNotEmptyString(label)
+  return (isNumber(value) || isNotEmptyString(value)) && isNotEmptyString(label)
 }
+
 function isBetween(value, start, end) {
+  
   return value >= start && value <= end
 }
 function isNumber(value) {
@@ -49,7 +56,6 @@ function isNumber(value) {
 function isString(value) {
   return typeof value === 'string'
 }
-
 function isNull(value) {
   return value === null
 }
