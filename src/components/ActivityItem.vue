@@ -12,12 +12,12 @@ defineProps({
     validator: isActivityValid
   }
 })
-
 const emit = defineEmits({
   delete: isUndefined
 })
-const secondsToComplete = ref(null)
+const secondsToComplete = ref(0)
 </script>
+
 <template>
   <li class="flex flex-col gap-2 p-4">
     <div class="flex items-center gap-2">
@@ -28,11 +28,11 @@ const secondsToComplete = ref(null)
     </div>
     <div>
       <BaseSelect
-        class="font-mono"
-        placeholder="h:mm"
-        :options="PERIOD_SELECT_OPTIONS"
-        :selected="secondsToComplete"
-        @select="secondsToComplete = $event"
+          class="font-mono"
+          placeholder="h:mm"
+          :options="PERIOD_SELECT_OPTIONS"
+          :selected="secondsToComplete"
+          @select="secondsToComplete = $event"
       />
     </div>
   </li>

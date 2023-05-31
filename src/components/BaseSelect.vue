@@ -1,46 +1,51 @@
 <script setup>
-import { PlusIcon } from '@heroicons/vue/24/outline'
-import { validateActivities, isActivityValid } from '../validators'
-import BaseButton from '../components/BaseButton.vue'
-import ActivityItem from '../components/ActivityItem.vue'
-defineProps({
-  activities: {
+import { computed } from 'vue'
+import { XMarkIcon } from '@heroicons/vue/24/outline'
+import { BUTTON_TYPE_NEUTRAL } from '../constants'
+import { normalizeSelectValue } from '../functions'
+import { validateSelectOptions, isSelectValueValid, isUndefinedOrNull } from '../validators'
+import BaseButton from './BaseButton.vue'
+const props = defineProps({
+  selected: [String, Number],
+  placeholder: {
     required: true,
-    type: Array,
-    validator: validateActivities
-  }
+    type: String
+        },
+        options: {
+  required: true,
+      type: Array,
+      validator: validateSelectOptions
+}
 })
 const emit = defineEmits({
-  createActivity: isActivityValid,
-  deleteActivity: isActivityValid
+  select: isSelectValueValid
 })
-let newActivity = ''
+const isNotSelected = computed(() => isUndefinedOrNull(props.selected))
+function select(value) {
+  emit('select', normalizeSelectValue(value))
+}
 </script>
 
 <template>
-  <div>
-    <ul class="divide-y">
-      <ActivityItem
-        v-for="activity in activities"
-        :key="activity"
-        :activity="activity"
-        @delete="emit('deleteActivity', activity)"
-      />
-    </ul>
-    <form
-      @submit.prevent="emit('createActivity', newActivity)"
-      class="sticky bottom-[57px] flex gap-2 border-t bg-white p-4"
+  <div class="flex gap-2">
+    <BaseButton :type="BUTTON_TYPE_NEUTRAL" @click="select(null)">
+      <XMarkIcon class="h-8" />
+    </BaseButton>
+    <select
+        class="w-full truncate rounded bg-gray-100 py-1 px-2 text-2xl"
+        @change="select($event.target.value)"
     >
-      <input
-        type="text"
-        :value="newActivity"
-        @input="newActivity = $event.target.value"
-        class="w-full px-4 text-xl border rounded"
-        placeholder="Activity name"
-      />
-      <BaseButton>
-        <PlusIcon class="h-8" />
-      </BaseButton>
-    </form>
+      <option :selected="isNotSelected" disabled value="">
+        {{ placeholder }}
+      </option>
+      <option
+          v-for="{ value, label } in options"
+          :key="value"
+          :value="value"
+          :selected="value === selected"
+      >
+        {{ label }}
+      </option>
+    </select>
   </div>
 </template>
