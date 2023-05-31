@@ -41,6 +41,7 @@ npm run build
 npm run lint
 ```
 * npm install @heroicons/vue
+* sudo apt install vite
 
 ### Installation links:
 * https://tailwindcss.com/docs/installation/using-postcss
