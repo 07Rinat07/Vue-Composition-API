@@ -12,26 +12,39 @@ import TheNav from './components/TheNav.vue'
 import TheTimeline from './pages/TheTimeline.vue'
 import TheActivities from './pages/TheActivities.vue'
 import TheProgress from './pages/TheProgress.vue'
+
 const currentPage = ref(normalizePageHash())
+
 const timelineItems = generateTimelineItems()
+
 const activities = ref(generateActivities())
+
 const activitySelectOptions = computed(() => generateActivitySelectOptions(activities.value))
+
 function goTo(page) {
   currentPage.value = page
 }
+
 function createActivity(activity) {
   activities.value.push(activity)
 }
+
 function deleteActivity(activity) {
+  timelineItems.forEach((timelineItem) => {
+    if (timelineItem.activityId === activity.id) {
+      timelineItem.activityId = null
+    }
+  })
+
   activities.value.splice(activities.value.indexOf(activity), 1)
 }
+
 function setTimelineItemActivity({ timelineItem, activity }) {
   timelineItem.activityId = activity.id
 }
 </script>
 
 <template>
-
   <TheHeader @navigate="goTo($event)" />
 
   <main class="flex flex-grow flex-col">
@@ -50,5 +63,6 @@ function setTimelineItemActivity({ timelineItem, activity }) {
     />
     <TheProgress v-show="currentPage === PAGE_PROGRESS" />
   </main>
+
   <TheNav :current-page="currentPage" @navigate="goTo($event)" />
 </template>
