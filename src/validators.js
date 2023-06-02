@@ -33,31 +33,29 @@ export function validateSelectOptions(options) {
 export function isUndefinedOrNull(value) {
   return isUndefined(value) || isNull(value)
 }
-
 export function isSelectValueValid(value) {
   return isNotEmptyString(value) || isNumberOrNull(value)
 }
-
 export function isNumberOrNull(value) {
   return isNumber(value) || isNull(value)
 }
-  export function isUndefined(value) {
-    return value === undefined
-  }
+export function isUndefined(value) {
+  return value === undefined
+}
+export function isNull(value) {
+  return value === null
+}
 
-  export function isNull(value) {
-    return value === null
-  }
-
-  function isSelectOptionValid({ value, label }) {
-    return (isNumber(value) || isNotEmptyString(value)) && isNotEmptyString(label)
-  }
+export function isNumber(value) {
+  return typeof value === 'number'
+}
+function isSelectOptionValid({ value, label }) {
+  return (isNumber(value) || isNotEmptyString(value)) && isNotEmptyString(label)
+}
   function isBetween(value, start, end) {
     return value >= start && value <= end
   }
-  function isNumber(value) {
-    return typeof value === 'number'
-  }
+
   function isString(value) {
     return typeof value === 'string'
   }

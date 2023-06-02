@@ -15,36 +15,28 @@ import TheProgress from './pages/TheProgress.vue'
 const currentPage = ref(normalizePageHash())
 const timelineItems = ref(generateTimelineItems())
 const activities = ref(generateActivities())
-  const activitySelectOptions = computed(() => generateActivitySelectOptions(activities.value))
-  function goTo(page) {
-    currentPage.value = page
-  }
-  function createActivity(activity) {
-    activities.value.push(activity)
-  }
-  function deleteActivity(activity) {
-    timelineItems.value.forEach((timelineItem) => {
-      if (timelineItem.activityId === activity.id) {
-        timelineItem.activityId = null
-      }
-    })
-      activities.value.splice(activities.value.indexOf(activity), 1)
+const activitySelectOptions = computed(() => generateActivitySelectOptions(activities.value))
+function goTo(page) {
+  currentPage.value = page
+}
+function createActivity(activity) {
+  activities.value.push(activity)
+}
+function deleteActivity(activity) {
+  timelineItems.value.forEach((timelineItem) => {
+    if (timelineItem.activityId === activity.id) {
+      timelineItem.activityId = null
     }
-    function setTimelineItemActivity({ timelineItem, activity }) {
-      timelineItem.activityId = activity?.id || null
-    }
+  })
+  activities.value.splice(activities.value.indexOf(activity), 1)
+}
+function setTimelineItemActivity({ timelineItem, activity }) {
+  timelineItem.activityId = activity?.id || null
+}
+function setActivitySecondsToComplete(activity, secondsToComplete) {
+  activity.secondsToComplete = secondsToComplete
+}
 </script>
-
-
-
-
-
-
-
-Expand Down
-
-
-
 <template>
   <TheHeader @navigate="goTo($event)" />
   <main class="flex flex-grow flex-col">
@@ -60,6 +52,7 @@ Expand Down
         :activities="activities"
         @create-activity="createActivity"
         @delete-activity="deleteActivity"
+        @set-activity-seconds-to-complete="setActivitySecondsToComplete"
     />
     <TheProgress v-show="currentPage === PAGE_PROGRESS" />
   </main>
