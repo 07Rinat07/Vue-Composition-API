@@ -1,13 +1,14 @@
 <script setup>
+import { NULLABLE_ACTIVITY } from '../constants'
 import {
   isTimelineItemValid,
   isActivityValid,
   validateSelectOptions,
-  validateActivities,
-  isNull
-} from '@/validators'
+  validateActivities
+} from '../validators'
 import BaseSelect from './BaseSelect.vue'
 import TimelineHour from './TimelineHour.vue'
+
   const props = defineProps({
     timelineItem: {
       required: true,
@@ -26,14 +27,16 @@ import TimelineHour from './TimelineHour.vue'
     }
   })
   const emit = defineEmits({
-    selectActivity(activity) {
-      return isNull(activity) || isActivityValid(activity)
-    }
+    selectActivity: isActivityValid
   })
   function selectActivity(id) {
-  emit('selectActivity', props.activities.find((activity) => activity.id === id) || null)
+  emit('selectActivity', findActivityById(id))
+}
+function findActivityById(id) {
+  return props.activities.find((activity) => activity.id === id) || NULLABLE_ACTIVITY
 }
 </script>
+
 <template>
   <li class="relative flex flex-col gap-2 border-t border-gray-200 py-10 px-4">
     <TimelineHour :hour="timelineItem.hour" />
