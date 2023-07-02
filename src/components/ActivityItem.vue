@@ -4,6 +4,7 @@ import { PERIOD_SELECT_OPTIONS, BUTTON_TYPE_DANGER } from '../constants'
 import { isActivityValid, isUndefined, isNumber } from '../validators'
 import BaseButton from './BaseButton.vue'
 import BaseSelect from './BaseSelect.vue'
+
 defineProps({
   activity: {
     required: true,
@@ -11,11 +12,13 @@ defineProps({
     validator: isActivityValid
   }
 })
+
 const emit = defineEmits({
   setSecondsToComplete: isNumber,
   delete: isUndefined
 })
 </script>
+
 <template>
   <li class="flex flex-col gap-2 p-4">
     <div class="flex items-center gap-2">
@@ -26,11 +29,11 @@ const emit = defineEmits({
     </div>
     <div>
       <BaseSelect
-          class="font-mono"
-          placeholder="hh:mm"
-          :options="PERIOD_SELECT_OPTIONS"
-          :selected="activity.secondsToComplete || null"
-          @select="emit('setSecondsToComplete', $event || 0)"
+        class="font-mono"
+        placeholder="hh:mm"
+        :options="PERIOD_SELECT_OPTIONS"
+        :selected="activity.secondsToComplete || null"
+        @select="emit('setSecondsToComplete', $event || 0)"
       />
     </div>
   </li>

@@ -1,11 +1,4 @@
-
-<div id="header" align="center">
-  <img src="https://media.giphy.com/media/M9gbBd9nbDrOTu1Mqx/giphy.gif" width="100"/>
-</div>
-
-
-<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=700&size=40&color=F72402&center=true&vCenter=true&width=1100&height=150&lines=Vue-Composition-API" alt="Typing SVG" /></a>
-## Project "ontrack"
+# ontrack
 
 This template should help get you started developing with Vue 3 in Vite.
 
@@ -40,9 +33,3 @@ npm run build
 ```sh
 npm run lint
 ```
-* npm install @heroicons/vue
-* sudo apt install vite
-
-### Installation links:
-* https://tailwindcss.com/docs/installation/using-postcss
-* https://tailwindcss.com/docs/guides/vite#vue
