@@ -2,16 +2,16 @@
 import { ref, computed, provide } from 'vue'
 import { PAGE_TIMELINE, PAGE_ACTIVITIES, PAGE_PROGRESS } from './constants'
 import {
-generateTimelineItems,
-    generateActivities,
-    generateActivitySelectOptions
+  normalizePageHash,
+  generateTimelineItems,
+  generateActivities,
+  generateActivitySelectOptions
 } from './functions'
 import TheHeader from './components/TheHeader.vue'
 import TheNav from './components/TheNav.vue'
 import TheTimeline from './pages/TheTimeline.vue'
 import TheActivities from './pages/TheActivities.vue'
 import TheProgress from './pages/TheProgress.vue'
-provide('updateTimelineItemActivitySeconds', updateTimelineItemActivitySeconds)
 const currentPage = ref(normalizePageHash())
 const activities = ref(generateActivities())
   const timelineItems = ref(generateTimelineItems(activities.value))
@@ -47,7 +47,10 @@ const activities = ref(generateActivities())
   function setActivitySecondsToComplete(activity, secondsToComplete) {
     activity.secondsToComplete = secondsToComplete
   }
+  provide('updateTimelineItemActivitySeconds', updateTimelineItemActivitySeconds)
+  provide('timelineItems', timelineItems.value)
 </script>
+
 <template>
   <TheHeader @navigate="goTo($event)" />
   <main class="flex flex-grow flex-col">
@@ -63,7 +66,6 @@ const activities = ref(generateActivities())
     <TheActivities
         v-show="currentPage === PAGE_ACTIVITIES"
         :activities="activities"
-        :timeline-items="timelineItems"
         @create-activity="createActivity"
         @delete-activity="deleteActivity"
         @set-activity-seconds-to-complete="setActivitySecondsToComplete"
