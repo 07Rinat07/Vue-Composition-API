@@ -5,11 +5,11 @@ import {
   isActivityValid,
   isHourValid,
   validateSelectOptions,
-  validateActivities,
-  isNumber
+  validateActivities
 } from '../validators'
 import BaseSelect from './BaseSelect.vue'
 import TimelineHour from './TimelineHour.vue'
+
   import TimelineStopwatch from './TimelineStopwatch.vue'
   const props = defineProps({
     timelineItem: {
@@ -29,7 +29,6 @@ import TimelineHour from './TimelineHour.vue'
     }
   })
   const emit = defineEmits({
-    updateActivitySeconds: isNumber,
     selectActivity: isActivityValid,
     scrollToHour: isHourValid
   })
@@ -52,10 +51,6 @@ import TimelineHour from './TimelineHour.vue'
         :options="activitySelectOptions"
         @select="selectActivity"
     />
-    <TimelineStopwatch
-        :seconds="timelineItem.activitySeconds"
-        :hour="timelineItem.hour"
-        @update-seconds="emit('updateActivitySeconds', $event)"
-    />
+    <TimelineStopwatch :timeline-item="timelineItem" />
   </li>
 </template>

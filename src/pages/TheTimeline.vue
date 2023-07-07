@@ -7,43 +7,40 @@ import {
   validateActivities,
   isTimelineItemValid,
   isActivityValid,
-  isPageValid,
-  isNumber
+  isPageValid
 } from '../validators'
 import TimelineItem from '../components/TimelineItem.vue'
-const props = defineProps({
-  timelineItems: {
-    required: true,
-    type: Array,
-    validator: validateTimelineItems
-  },
-  activities: {
-    required: true,
-    type: Array,
-    validator: validateActivities
-  },
-  activitySelectOptions: {
-    required: true,
-    type: Array,
-    validator: validateSelectOptions
-  },
-  currentPage: {
-    required: true,
-    type: String,
-    validator: isPageValid
-  }
-})
-const emit = defineEmits({
-  updateTimelineItemActivitySeconds(timelineItem, activitySeconds) {
-    return [isTimelineItemValid(timelineItem), isNumber(activitySeconds)].every(Boolean)
-  },
-  setTimelineItemActivity(timelineItem, activity) {
-    return [isTimelineItemValid(timelineItem), isActivityValid(activity)].every(Boolean)
-  }
+  const props = defineProps({
+    timelineItems: {
+      required: true,
+      type: Array,
+      validator: validateTimelineItems
+    },
+    activities: {
+      required: true,
+      type: Array,
+      validator: validateActivities
+    },
+    activitySelectOptions: {
+      required: true,
+      type: Array,
+      validator: validateSelectOptions
+    },
+    currentPage: {
+      required: true,
+      type: String,
+      validator: isPageValid
+    }
   })
-defineExpose({ scrollToHour })
-const timelineItemRefs = ref([])
-watchPostEffect(async () => {
+  const emit = defineEmits({
+    setTimelineItemActivity(timelineItem, activity) {
+      return [isTimelineItemValid(timelineItem), isActivityValid(activity)].every(Boolean)
+    }
+
+    })
+  defineExpose({ scrollToHour })
+  const timelineItemRefs = ref([])
+  watchPostEffect(async () => {
   if (props.currentPage === PAGE_TIMELINE) {
     await nextTick()
     scrollToHour(null, false)
@@ -71,7 +68,6 @@ function scrollToHour(hour = null, isSmooth = true) {
           ref="timelineItemRefs"
           @scroll-to-hour="scrollToHour"
           @select-activity="emit('setTimelineItemActivity', timelineItem, $event)"
-          @update-activity-seconds="emit('updateTimelineItemActivitySeconds', timelineItem, $event)"
       />
     </ul>
   </div>
