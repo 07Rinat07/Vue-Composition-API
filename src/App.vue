@@ -26,24 +26,24 @@ function goTo(page) {
   }
   currentPage.value = page
 }
-  function createActivity(activity) {
-    activities.value.push(activity)
-  }
-  function deleteActivity(activity) {
-    timelineItems.value.forEach((timelineItem) => {
-      if (timelineItem.activityId === activity.id) {
-        timelineItem.activityId = null
-        timelineItem.activitySeconds = 0
-      }
-    })
-    activities.value.splice(activities.value.indexOf(activity), 1)
-  }
-  function setTimelineItemActivity(timelineItem, activity) {
-    timelineItem.activityId = activity.id
-  }
-  function setActivitySecondsToComplete(activity, secondsToComplete) {
-    activity.secondsToComplete = secondsToComplete
-  }
+function createActivity(activity) {
+  activities.value.push(activity)
+}
+function deleteActivity(activity) {
+  timelineItems.value.forEach((timelineItem) => {
+    if (timelineItem.activityId === activity.id) {
+      timelineItem.activityId = null
+      timelineItem.activitySeconds = 0
+    }
+  })
+  activities.value.splice(activities.value.indexOf(activity), 1)
+}
+function setTimelineItemActivity(timelineItem, activity) {
+  timelineItem.activityId = activity.id
+}
+function setActivitySecondsToComplete(activity, secondsToComplete) {
+  activity.secondsToComplete = secondsToComplete
+}
 </script>
 <template>
   <TheHeader @navigate="goTo($event)" />
@@ -60,9 +60,11 @@ function goTo(page) {
     <TheActivities
         v-show="currentPage === PAGE_ACTIVITIES"
         :activities="activities"
+        :timeline-items="timelineItems"
         @create-activity="createActivity"
         @delete-activity="deleteActivity"
         @set-activity-seconds-to-complete="setActivitySecondsToComplete"
+
     />
     <TheProgress v-show="currentPage === PAGE_PROGRESS" />
   </main>
