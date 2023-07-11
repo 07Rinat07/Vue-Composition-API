@@ -5,7 +5,8 @@ import {
   normalizePageHash,
   generateTimelineItems,
   generateActivities,
-  generateActivitySelectOptions
+  generateActivitySelectOptions,
+  generatePeriodSelectOptions
 } from './functions'
 import TheHeader from './components/TheHeader.vue'
 import TheNav from './components/TheNav.vue'
@@ -57,10 +58,10 @@ function setActivitySecondsToComplete(activity, secondsToComplete) {
 
 provide('updateTimelineItemActivitySeconds', updateTimelineItemActivitySeconds)
 provide('activitySelectOptions', activitySelectOptions.value)
+provide('periodSelectOptions', generatePeriodSelectOptions())
 provide('timelineItems', timelineItems.value)
 provide('activities', activities.value)
 </script>
-
 <template>
   <TheHeader @navigate="goTo($event)"/>
   <main class="flex flex-grow flex-col">
@@ -70,7 +71,6 @@ provide('activities', activities.value)
         :current-page="currentPage"
         ref="timeline"
         @set-timeline-item-activity="setTimelineItemActivity"
-
     />
     <TheActivities
         v-show="currentPage === PAGE_ACTIVITIES"
