@@ -21,23 +21,19 @@ watchPostEffect(async () => {
 })
 function scrollToHour(hour = null, isSmooth = true) {
   hour ??= new Date().getHours()
-  const options = { behavior: isSmooth ? 'smooth' : 'instant' }
-  if (hour === MIDNIGHT_HOUR) {
-    document.body.scrollIntoView(options)
-  } else {
-    timelineItemRefs.value[hour - 1].$el.scrollIntoView(options)
-  }
+  const el = hour === MIDNIGHT_HOUR ? document.body : timelineItemRefs.value[hour - 1].$el
+  el.scrollIntoView({ behavior: isSmooth ? 'smooth' : 'instant' })
 }
 </script>
 <template>
   <div class="mt-7">
     <ul>
       <TimelineItem
-          v-for="timelineItem in timelineItems"
-          :key="timelineItem.hour"
-          :timeline-item="timelineItem"
-          ref="timelineItemRefs"
-          @scroll-to-hour="scrollToHour"
+        v-for="timelineItem in timelineItems"
+        :key="timelineItem.hour"
+        :timeline-item="timelineItem"
+        ref="timelineItemRefs"
+        @scroll-to-hour="scrollToHour"
       />
     </ul>
   </div>
