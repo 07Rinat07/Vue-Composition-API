@@ -7,18 +7,18 @@ import {
 } from './constants'
 import { isNull } from './validators'
 
+export function currentHour() {
+  return new Date().getHours()
+}
 export function formatSeconds(seconds) {
   const date = new Date()
-
   date.setTime(Math.abs(seconds) * MILLISECONDS_IN_SECOND)
   const utc = date.toUTCString()
   return utc.substring(utc.indexOf(':') - 2, utc.indexOf(':') + 6)
 }
-
 export function normalizeSelectValue(value) {
   return isNull(value) || isNaN(value) ? value : +value
 }
-
 export function generateActivities() {
   return ['Coding', 'Reading', 'Training'].map((name, hours) => ({
     id: id(),
@@ -31,8 +31,8 @@ export function id() {
 }
 export function getTotalActivitySeconds(activity, timelineItems) {
   return timelineItems
-    .filter((timelineItem) => timelineItem.activityId === activity.id)
-    .reduce((totalSeconds, timelineItem) => Math.round(timelineItem.activitySeconds + totalSeconds), 0)
+      .filter((timelineItem) => timelineItem.activityId === activity.id)
+      .reduce((totalSeconds, timelineItem) => Math.round(timelineItem.activitySeconds + totalSeconds), 0)
 }
 export function generateTimelineItems(activities) {
   return [...Array(HOURS_IN_DAY).keys()].map((hour) => ({

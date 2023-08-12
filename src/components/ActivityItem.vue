@@ -7,18 +7,17 @@ import { setActivitySecondsToCompleteKey, periodSelectOptionsKey, deleteActivity
 import BaseButton from './BaseButton.vue'
 import BaseSelect from './BaseSelect.vue'
 import ActivitySecondsToComplete from './ActivitySecondsToComplete.vue'
-  defineProps({
-                activity: {
-                  required: true,
-                  type: Object,
-                  validator: isActivityValid
-                }
-              })
-  const setActivitySecondsToComplete = inject(setActivitySecondsToCompleteKey)
-  const periodSelectOptions = inject(periodSelectOptionsKey)
-  const deleteActivity = inject(deleteActivityKey)
+defineProps({
+  activity: {
+    required: true,
+    type: Object,
+    validator: isActivityValid
+  }
+})
+const setActivitySecondsToComplete = inject(setActivitySecondsToCompleteKey)
+const periodSelectOptions = inject(periodSelectOptionsKey)
+const deleteActivity = inject(deleteActivityKey)
 </script>
-
 <template>
   <li class="flex flex-col gap-2 p-4">
     <div class="flex items-center gap-2">
@@ -33,7 +32,7 @@ import ActivitySecondsToComplete from './ActivitySecondsToComplete.vue'
           placeholder="hh:mm"
           :options="periodSelectOptions"
           :selected="activity.secondsToComplete || null"
-          @select="setActivitySecondsToComplete(activity, $event || 0)"
+          @select="setActivitySecondsToComplete(activity, $event)"
       />
       <ActivitySecondsToComplete v-if="activity.secondsToComplete" :activity="activity" />
     </div>
