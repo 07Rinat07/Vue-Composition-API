@@ -20,18 +20,19 @@ const timelineItems = ref(generateTimelineItems(activities.value))
 function setTimelineItemActivity(timelineItem, activityId) {
   timelineItem.activityId = activityId
 }
-  function updateTimelineItemActivitySeconds(timelineItem, activitySeconds) {
-    timelineItem.activitySeconds += activitySeconds
-  }
-  provide(keys.updateTimelineItemActivitySecondsKey, updateTimelineItemActivitySeconds)
-  provide(keys.setActivitySecondsToCompleteKey, setActivitySecondsToComplete)
-  provide(keys.setTimelineItemActivityKey, setTimelineItemActivity)
-  provide(keys.createActivityKey, createActivity)
-  provide(keys.deleteActivityKey, deleteActivity)
-  provide(keys.activitySelectOptionsKey, readonly(activitySelectOptions.value))
-  provide(keys.periodSelectOptionsKey, readonly(generatePeriodSelectOptions()))
-  provide(keys.timelineItemsKey, readonly(timelineItems.value))
+function updateTimelineItemActivitySeconds(timelineItem, activitySeconds) {
+  timelineItem.activitySeconds += activitySeconds
+}
+provide(keys.updateTimelineItemActivitySecondsKey, updateTimelineItemActivitySeconds)
+provide(keys.setActivitySecondsToCompleteKey, setActivitySecondsToComplete)
+provide(keys.setTimelineItemActivityKey, setTimelineItemActivity)
+provide(keys.createActivityKey, createActivity)
+provide(keys.deleteActivityKey, deleteActivity)
+provide(keys.activitySelectOptionsKey, readonly(activitySelectOptions))
+provide(keys.periodSelectOptionsKey, readonly(generatePeriodSelectOptions()))
+provide(keys.timelineItemsKey, readonly(timelineItems))
 </script>
+
 <template>
   <TheHeader />
   <main class="flex flex-grow flex-col">

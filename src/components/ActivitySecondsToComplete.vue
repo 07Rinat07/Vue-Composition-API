@@ -5,15 +5,15 @@ import { isActivityValid } from '../validators'
 import { timelineItemsKey } from '../keys'
 const props = defineProps({
   activity: {
-      required: true,
-      type: Object,
-      validator: isActivityValid
-    }
-  })
+    required: true,
+    type: Object,
+    validator: isActivityValid
+  }
+})
 const timelineItems = inject(timelineItemsKey)
 const classes = computed(
     () =>
-    `flex items-center rounded bg-purple-100 px-2 font-mono text-xl text-purple-600 ${colorClasses.value}`
+        `flex items-center rounded bg-purple-100 px-2 font-mono text-xl text-purple-600 ${colorClasses.value}`
 )
 const colorClasses = computed(() =>
     secondsDiff.value < 0 ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600'
@@ -21,7 +21,8 @@ const colorClasses = computed(() =>
 const seconds = computed(() => `${sign.value}${formatSeconds(secondsDiff.value)}`)
 const sign = computed(() => (secondsDiff.value >= 0 ? '+' : '-'))
 const secondsDiff = computed(
-    () => getTotalActivitySeconds(props.activity, timelineItems) - props.activity.secondsToComplete
+    () =>
+        getTotalActivitySeconds(props.activity, timelineItems.value) - props.activity.secondsToComplete
 )
 </script>
 <template>
