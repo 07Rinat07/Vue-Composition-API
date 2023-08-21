@@ -3,21 +3,22 @@ import { BUTTON_TYPE_DANGER, PERIOD_SELECT_OPTIONS } from '../constants'
 import { ICON_TRASH } from '../icons'
 import { isActivityValid } from '../validators'
 import { updateActivity, deleteActivity } from '../activities'
-import { resetTimelineItemActivities } from '../timeline-items'
+import { timelineItems, resetTimelineItemActivities } from '../timeline-items'
 import BaseButton from './BaseButton.vue'
 import BaseIcon from './BaseIcon.vue'
 import BaseSelect from './BaseSelect.vue'
-import ActivitySecondsToComplete from './ActivitySecondsToComplete.vue'
-defineProps({
-  activity: {
-    required: true,
-    type: Object,
-    validator: isActivityValid
-  }
-})
-function deleteAndResetActivity(activity) {
-  resetTimelineItemActivities(activity)
-  deleteActivity(activity)
+
+  import ActivitySecondsToComplete from './ActivitySecondsToComplete.vue'
+  defineProps({
+                activity: {
+                  required: true,
+                  type: Object,
+                  validator: isActivityValid
+                }
+              })
+  function deleteAndResetActivity(activity) {
+  resetTimelineItemActivities(timelineItems.value, activity)
+deleteActivity(activity)
 }
 </script>
 <template>
