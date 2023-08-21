@@ -1,8 +1,6 @@
 import { ICON_CLOCK, ICON_LIST_BULLET, ICON_CHART_BAR } from './icons'
 import { generatePeriodSelectOptions } from './functions'
-
 export const PAGE_TIMELINE = 'timeline'
-
 export const PAGE_ACTIVITIES = 'activities'
 export const PAGE_PROGRESS = 'progress'
 export const NAV_ITEMS = [
@@ -37,4 +35,7 @@ export const MINUTES_IN_HOUR = 60
 export const SECONDS_IN_HOUR = SECONDS_IN_MINUTE * MINUTES_IN_HOUR
 export const HOURS_IN_DAY = 24
 export const MIDNIGHT_HOUR = 0
+
 export const PERIOD_SELECT_OPTIONS = generatePeriodSelectOptions()
+
+export const HUNDRED_PERCENT = 100
