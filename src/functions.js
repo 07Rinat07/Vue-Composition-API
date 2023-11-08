@@ -1,20 +1,16 @@
 import {
-  MILLISECONDS_IN_SECOND,
-  SECONDS_IN_MINUTE,
-  MINUTES_IN_HOUR,
   HUNDRED_PERCENT,
+  LOW_PERCENT,
   MEDIUM_PERCENT,
-  LOW_PERCENT
+  MILLISECONDS_IN_SECOND,
+  MINUTES_IN_HOUR,
+  SECONDS_IN_MINUTE
 } from './constants'
-import { isNull } from './validators'
-export function currentHour() {
-  return new Date().getHours()
-}
+import {isNull} from './validators'
 
 export function formatSecondsWithSign(seconds) {
   return `${seconds >= 0 ? '+' : '-'}${formatSeconds(seconds)}`
 }
-
 export function formatSeconds(seconds) {
   const date = new Date()
   date.setTime(Math.abs(seconds) * MILLISECONDS_IN_SECOND)
