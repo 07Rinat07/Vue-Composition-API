@@ -6,22 +6,26 @@ import {
     SECONDS_IN_MINUTE
 } from './constants'
 
-export const now = ref(new Date())
+const date = new Date()
 
-    export const secondsSinceMidnightInPercentage = computed(
-        () => (HUNDRED_PERCENT * secondsSinceMidnight.value) / SECONDS_IN_DAY
-    )
-    const midnight = computed(() => new Date(now.value).setHours(0, 0, 0, 0))
-    const secondsSinceMidnight = computed(() => (now.value - midnight.value) / MILLISECONDS_IN_SECOND)
-    let timer = null
-    export function startTimer() {
-        now.value = new Date()
+date.setHours(0, 0)
 
-        timer = setInterval(() => {
-            now.value = new Date(now.value.getTime() + SECONDS_IN_MINUTE * MILLISECONDS_IN_SECOND)
-        }, MILLISECONDS_IN_SECOND)
-    }
+export const now = ref(date)
 
-    export function stopTimer() {
-        clearInterval(timer)
-    }
+export const secondsSinceMidnightInPercentage = computed(
+    () => (HUNDRED_PERCENT * secondsSinceMidnight.value) / SECONDS_IN_DAY
+)
+const midnight = computed(() => new Date(now.value).setHours(0, 0, 0, 0))
+const secondsSinceMidnight = computed(() => (now.value - midnight.value) / MILLISECONDS_IN_SECOND)
+let timer = null
+
+export function startTimer() {
+    now.value = date
+
+    timer = setInterval(() => {
+        now.value = new Date(now.value.getTime() + SECONDS_IN_MINUTE * MILLISECONDS_IN_SECOND)
+    }, MILLISECONDS_IN_SECOND)
+}
+export function stopTimer() {
+    clearInterval(timer)
+}
