@@ -8,7 +8,7 @@ import {
   stopTimelineItemTimer,
   resetTimelineItemTimer,
   timelineItemTimer
-} from '@/timeline-items'
+} from '../timeline-item-timer'
 import { now } from '@/time'
 import BaseButton from './BaseButton.vue'
 import BaseIcon from './BaseIcon.vue'
@@ -20,7 +20,6 @@ defineProps({
   }
 })
 </script>
-
 <template>
   <div class="flex w-full gap-2">
     <BaseButton
