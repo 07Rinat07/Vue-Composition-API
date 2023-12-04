@@ -33,3 +33,9 @@ npm run build
 ```sh
 npm run lint
 ```
+### How to deploy a finished project
+* Getting started with Surge
+1. npm run build
+2. sudo npm install --global surge
+3. surge dist
+4. When prompted, enter your email address and password to register and receive your free domain. Copy the project address on the command line.
